@@ -1,4 +1,4 @@
-Opensearch Role
+Opensearch Dashboards Role
 =========
 
 Ansible role to install Opensearch and Opensearch Dashboards via Helm on top of Kubernetes
