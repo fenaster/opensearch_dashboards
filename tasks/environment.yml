@@ -7,7 +7,7 @@
     line: 'KUBECONFIG=/etc/rancher/k3s/k3s.yaml'
 
 - name: Add KUBECONFIG to running config
-  ansible.builtin.command: "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
+  ansible.builtin.command: "/bin/bash -c export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
 
 - name: Change sysctl vm.max_map_count to 262144
   ansible.builtin.lineinfile:

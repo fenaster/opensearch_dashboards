@@ -40,8 +40,8 @@ Example Playbook
         name: opensearch_dashboards
         apply:
           become: true
-        vars:
-          osd_password: 'CU5T0MP455W0RD'
+      vars:
+        osd_password: 'CU5T0MP455W0RD'
 ```
 
 License
