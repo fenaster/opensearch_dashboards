@@ -1,7 +1,7 @@
 Opensearch Role
 =========
 
-Ansible role to install opensearch via Helm on top of Kubernetes
+Ansible role to install Opensearch and Opensearch Dashboards via Helm on top of Kubernetes
 
 Requirements
 ------------
@@ -35,9 +35,9 @@ Example Playbook
 - name: Install Opensearch
   hosts: all
   tasks:
-    - name: Call opensearch role
+    - name: Call Opensearch Dashboards role
       ansible.builtin.include_role:
-        name: opensearch
+        name: opensearch_dashboards
         apply:
           become: true
 ```
