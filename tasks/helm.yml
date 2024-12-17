@@ -32,4 +32,5 @@
   ansible.builtin.copy:
     src: "{{ item.path }}"
     dest: "{{ osd_ulb_dir }}"
+    remote_src: true
   with_items: "{{ osd_helm_file.files }}"
