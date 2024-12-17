@@ -1,0 +1,21 @@
+---
+
+- name: Add helm opensearch repo
+  kubernetes.core.helm_repository:
+    name: "{{ osd_helm_opensearch_version }}"
+    repo_url: "{{ osd_helm_opensearch_repo }}"
+
+- name: Deploy Opensearch through helm
+  kubernetes.core.helm:
+    name: "{{ osd_opensearch_name }}"
+    chart_ref: opensearch
+    values_files:
+      - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
+
+- name: Wait until Opensearch has successfully deployed
+  ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl rollout -n default status deployment {{ osd_opensearch_name }}-opensearch --timeout=300s'
+  register: opensearch_result
+  until: "local_path_provisioner_result is not failed"
+  retries: 40
+  delay: 2
+  changed_when: false

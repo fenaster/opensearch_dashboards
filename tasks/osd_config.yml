@@ -1,0 +1,11 @@
+---
+
+- name: Create Opensearch directory
+  ansible.builtin.file:
+    path: "{{ osd_opensearch_dir }}"
+    state: directory
+
+- name: Create config file
+  ansible.builtin.template:
+    src: "{{ osd_customvalues }}"
+    dest: "{{ osd_opensearch_dir }}"

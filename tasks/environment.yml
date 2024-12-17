@@ -1,0 +1,19 @@
+---
+
+- name: Add KUBECONFIG environment variable
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: '^KUBECONFIG=/etc/rancher/k3s/k3s.yaml'
+    line: 'KUBECONFIG=/etc/rancher/k3s/k3s.yaml'
+
+- name: Add KUBECONFIG to running config
+  ansible.builtin.command: "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
+
+- name: Change sysctl vm.max_map_count to 262144
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    regexp: '^vm.max_map_count = 262144'
+    line: 'vm.max_map_count = 262144'
+
+- name: Change running sysctl config
+  ansible.builtin.command: "sysctl -w vm.max_map_count=262144"

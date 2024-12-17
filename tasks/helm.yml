@@ -1,0 +1,35 @@
+---
+
+- name: Create Helm install directory
+  ansible.builtin.file:
+    path: "{{ osd_helm_dir }}"
+    state: directory
+
+- name: Pull Helm tar
+  ansible.builtin.get_url:
+    url: "{{ osd_helm_url }}"
+    dest: "{{ osd_helm_dir }}"
+
+- name: Grab tar file
+  ansible.builtin.find:
+    paths: "{{ osd_helm_dir }}"
+    patterns: '*.tar.gz'
+  register: osd_helm_tar
+
+- name: Tar xzvf helm
+  ansible.builtin.unarchive:
+    src: "{{ item.path }}"
+    dest: "{{ osd_helm_dir }}"
+  with_items: "{{ osd_helm_tar.files }}"
+
+- name: Find helm file
+  ansible.builtin.find:
+    paths: "{{ osd_helm_dir }}"
+    patterns: 'helm'
+  register: osd_helm_file
+
+- name: Copy helm binary to /usr/local/bin
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ osd_ulb_dir }}"
+  with_items: "{{ osd_helm_file.files }}"
