@@ -20,6 +20,7 @@
   ansible.builtin.unarchive:
     src: "{{ item.path }}"
     dest: "{{ osd_helm_dir }}"
+    remote_src: true
   with_items: "{{ osd_helm_tar.files }}"
 
 - name: Find helm file
