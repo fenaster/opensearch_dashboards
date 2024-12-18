@@ -14,7 +14,7 @@
       - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
 
 - name: Wait until Opensearch has successfully deployed
-  ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl rollout -n default status deployment {{ osd_opensearch_name }}-opensearch --timeout=300s'
+  ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl wait --for=condition=Ready pod/opensearch-cluster-master-0'
   register: opensearch_result
   until: "opensearch_result is not failed"
   retries: 40
