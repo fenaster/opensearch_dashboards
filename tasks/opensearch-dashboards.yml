@@ -17,18 +17,5 @@
     wait_sleep: 10
     wait_timeout: 360
 
-- name: Pull down ip config template
-  ansible.builtin.template:
-    src: "{{ osd_ip_conf }}"
-    dest: "{{ osd_opensearch_dir }}"
-
-- name: Expose https port
-  kubernetes.core.k8s_service:
-    state: present
-    name: "{{ osd_opensearch_dashboards_name }}-opensearch-dashboards"
-    namespace: "{{ osd_opensearch_namespace }}"
-    ports:
-      - port: 5601
-        protocol: TCP
-        targetPort: 5601
-    kubeconfig: "{{ osd_opensearch_dir }}/{{ osd_ip_conf }}"
+- name: Expose Port
+  ansible.builtin.command: "/usr/local/bin/kubectl expose deployment {{ osd_opensearch_dashboards_name }}-opensearch-dashboards --port={{ osd_port }} --protocol=TCP --target-port={{ osd_port }} --name={{ osd_opensearch_dashboards_name }} --external-ip={{ osd_external_ip }}"
