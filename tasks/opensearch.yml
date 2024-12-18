@@ -9,7 +9,7 @@
   kubernetes.core.helm:
     name: "{{ osd_opensearch_name }}"
     namespace: "{{ osd_opensearch_namespace }}"
-    chart_ref: opensearch
+    chart_ref: opensearch/opensearch
     values_files:
       - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
 

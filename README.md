@@ -13,13 +13,14 @@ Role Variables and Associated Defaults
 
 ```yaml
 osd_helm_dir: /root/helm
-osd_helm_url: https://get.helm.sh/helm-v3.16.4-darwin-amd64.tar.gz
-osd_ulb_dir: /usr/local/bin
+osd_helm_url: https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz
+osd_ulb_dir: /usr/local/sbin
 osd_opensearch_dir: /root/opensearch
 osd_password: 'Ch4ng3M3!!'
-osd_helm_opensearch_version: stable
-osd_helm_opensearch_repo: https://opensearch-project.github.io/helm-charts/
+osd_helm_opensearch_version: opensearch
+osd_helm_opensearch_repo: https://opensearch-project.github.io/helm-charts
 osd_opensearch_name: testing
+osd_opensearch_namespace: default
 osd_customvalues: customvalues.yaml
 ```
 
