@@ -18,3 +18,7 @@
 
 - name: Install Opensearch
   ansible.builtin.include_tasks: opensearch.yml
+
+- name: Install Opensearch Dashboards
+  ansible.builtin.include_tasks: opensearch-dashboards.yml
+  when: osd_dashboards
