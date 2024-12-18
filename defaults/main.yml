@@ -2,7 +2,7 @@
 # defaults file for opensearch_dashboards2
 
 osd_helm_dir: /root/helm
-osd_helm_url: https://get.helm.sh/helm-v3.16.4-darwin-amd64.tar.gz
+osd_helm_url: https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz
 osd_ulb_dir: /usr/local/sbin
 osd_opensearch_dir: /root/opensearch
 osd_password: 'Ch4ng3M3!!'
