@@ -27,6 +27,7 @@
   ansible.builtin.find:
     paths: "{{ osd_helm_dir }}/"
     patterns: 'helm'
+    recurse: true
   register: osd_helm_file
 
 - debug: "var=osd_helm_file"
