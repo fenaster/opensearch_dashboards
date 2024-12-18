@@ -7,6 +7,6 @@ osd_ulb_dir: /usr/local/bin
 osd_opensearch_dir: /root/opensearch
 osd_password: 'Ch4ng3M3!!'
 osd_helm_opensearch_version: stable
-osd_helm_opensearch_repo: https://opensearch-project.github.io/helm-charts/
+osd_helm_opensearch_repo: https://opensearch-project.github.io/helm-charts
 osd_opensearch_name: testing
 osd_customvalues: customvalues.yaml
