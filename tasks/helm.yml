@@ -32,7 +32,7 @@
 
 - debug: "var=osd_helm_file"
 
-- name: Copy helm binary to /usr/local/bin
+- name: Copy helm binary to bin location
   ansible.builtin.copy:
     src: "{{ item.path }}"
     dest: "{{ osd_ulb_dir }}"
