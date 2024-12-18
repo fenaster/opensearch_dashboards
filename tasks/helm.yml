@@ -37,5 +37,5 @@
     src: "{{ item.path }}"
     dest: "{{ osd_ulb_dir }}"
     remote_src: true
-    mode: 0755
+    mode: 0777
   with_items: "{{ osd_helm_file.files }}"
