@@ -13,10 +13,19 @@
     values_files:
       - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
 
-- name: Wait until Opensearch has successfully deployed
-  ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl wait --for=condition=Ready pod/opensearch-cluster-master-0'
+#- name: Wait until Opensearch has successfully deployed
+#  ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl wait --for=condition=Ready pod/opensearch-cluster-master-0'
 #  register: opensearch_result
 #   until: "opensearch_result is not failed"
 #   retries: 40
 #   delay: 2
 #   changed_when: false
+
+- name: Wait till the Object is created
+  kubernetes.core.k8s_info:
+    kind: Pod
+    wait: yes
+    name: opensearch-cluster-master-0
+    namespace: default
+    wait_sleep: 10
+    wait_timeout: 360
