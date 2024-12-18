@@ -16,7 +16,7 @@
 - name: Wait until Opensearch has successfully deployed
   ansible.builtin.command: '{{ osd_ulb_dir }}/kubectl rollout -n default status deployment {{ osd_opensearch_name }}-opensearch --timeout=300s'
   register: opensearch_result
-  until: "local_path_provisioner_result is not failed"
+  until: "opensearch_result is not failed"
   retries: 40
   delay: 2
   changed_when: false
