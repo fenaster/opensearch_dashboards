@@ -10,9 +10,22 @@
 
 - name: Wait till the Object is created
   kubernetes.core.k8s_info:
-    kind: Pod
+    kind: deployment
     wait: yes
     name: "{{ osd_opensearch_dashboards_name }}-opensearch-dashboards"
-    namespace: default
+    namespace: "{{ osd_opensearch_namespace }}"
     wait_sleep: 10
     wait_timeout: 360
+
+- name: Expose https port
+  kubernetes.core.k8s_service:
+    state: present
+    name: "{{ osd_opensearch_dashboards_name }}-opensearch-dashboards"
+    namespace: "{{ osd_opensearch_namespace }}"
+    ports:
+      - port: 5601
+        protocol: TCP
+        targetPort: 5601
+    kubeconfig:
+      externalIPs:
+        - "{{ osd_external_ip }}"

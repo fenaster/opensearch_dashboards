@@ -13,3 +13,4 @@ osd_opensearch_dashboards_name: testing-dash
 osd_opensearch_namespace: default
 osd_customvalues: customvalues.yaml
 osd_dashboards: true
+osd_external_ip: 10.10.10.10
