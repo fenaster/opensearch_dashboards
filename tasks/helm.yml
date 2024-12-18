@@ -25,9 +25,11 @@
 
 - name: Find helm file
   ansible.builtin.find:
-    paths: "{{ osd_helm_dir }}"
+    paths: "{{ osd_helm_dir }}/"
     patterns: 'helm'
   register: osd_helm_file
+
+- debug: "var=osd_helm_file"
 
 - name: Copy helm binary to /usr/local/bin
   ansible.builtin.copy:
