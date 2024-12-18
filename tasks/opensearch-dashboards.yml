@@ -17,6 +17,11 @@
     wait_sleep: 10
     wait_timeout: 360
 
+- name: Pull down ip config template
+  ansible.builtin.template:
+    src: "{{ osd_ip_conf }}"
+    dest: "{{ osd_opensearch_dir }}"
+
 - name: Expose https port
   kubernetes.core.k8s_service:
     state: present
@@ -26,5 +31,4 @@
       - port: 5601
         protocol: TCP
         targetPort: 5601
-    externalIPs:
-      - "{{ osd_external_ip }}"
+    kubeconfig: "{{ osd_opensearch_dir }}/{{ osd_ip_conf }}"

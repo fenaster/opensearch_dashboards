@@ -14,3 +14,4 @@ osd_opensearch_namespace: default
 osd_customvalues: customvalues.yaml
 osd_dashboards: true
 osd_external_ip: "{{ ansible_host }}"
+osd_ip_conf: ip_conf

@@ -1,0 +1,2 @@
+externalIPs:
+  - {{ osd_external_ip }}
