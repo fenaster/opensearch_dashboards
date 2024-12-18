@@ -30,8 +30,6 @@
     recurse: true
   register: osd_helm_file
 
-- debug: "var=osd_helm_file"
-
 - name: Copy helm binary to bin location
   ansible.builtin.copy:
     src: "{{ item.path }}"
