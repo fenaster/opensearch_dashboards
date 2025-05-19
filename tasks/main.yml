@@ -2,9 +2,11 @@
 # tasks file for opensearch_dashboards2
 - name: Install Helm
   ansible.builtin.include_tasks: helm.yml
+  when: osd_full_install
 
 - name: Configure Environment
   ansible.builtin.include_tasks: environment.yml
+  when: osd_full_install
 
 - name: Create Opensearch directory
   ansible.builtin.file:

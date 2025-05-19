@@ -15,3 +15,4 @@ osd_customvalues: customvalues.yaml
 osd_dashboards: true
 osd_external_ip: "{{ ansible_host }}"
 osd_port: 5601
+osd_full_install: true
