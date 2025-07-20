@@ -1,4 +1,0 @@
-extraEnvs:
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: {{ osd_password }}
-replicas: 1

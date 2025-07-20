@@ -11,7 +11,8 @@ osd_helm_opensearch_repo: https://opensearch-project.github.io/helm-charts
 osd_opensearch_name: testing
 osd_opensearch_dashboards_name: testing-dash
 osd_opensearch_namespace: default
-osd_customvalues: customvalues.yaml
+osd_customvalues: customValues.yaml
+osd_dashvalues: dashValues.yaml
 osd_dashboards: true
 osd_external_ip: "{{ ansible_host }}"
 osd_port: 5601

@@ -6,16 +6,27 @@
     namespace: "{{ osd_opensearch_namespace }}"
     chart_ref: opensearch/opensearch-dashboards
     values_files:
-      - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
+      - '{{ osd_opensearch_dir }}/{{ osd_dashvalues }}'
 
 - name: Wait till the Object is created
   kubernetes.core.k8s_info:
-    kind: deployment
+    kind: Pod
     wait: yes
-    name: "{{ osd_opensearch_dashboards_name }}-opensearch-dashboards"
-    namespace: "{{ osd_opensearch_namespace }}"
+    namespace: '{{ osd_opensearch_namespace }}'
     wait_sleep: 10
     wait_timeout: 360
 
+#- name: Wait till the Object is created
+#  kubernetes.core.k8s_info:
+#    kind: deployment
+#    wait: yes
+#    name: "{{ osd_opensearch_dashboards_name }}-opensearch-dashboards"
+#    namespace: "{{ osd_opensearch_namespace }}"
+#    create_namespace: true
+#    wait_sleep: 10
+#    wait_timeout: 360
+
+# variable may be needed to form deployment name {{ osd_opensearch_dashboards_name }}-
+
 - name: Expose Port
-  ansible.builtin.command: "/usr/local/bin/kubectl expose deployment {{ osd_opensearch_dashboards_name }}-opensearch-dashboards --port={{ osd_port }} --protocol=TCP --target-port={{ osd_port }} --name={{ osd_opensearch_dashboards_name }} --external-ip={{ osd_external_ip }}"
+  ansible.builtin.command: "/usr/local/bin/kubectl expose deployment {{ osd_opensearch_dashboards_name }}-opensearch-dashboards --port={{ osd_port }} --protocol=TCP --target-port={{ osd_port }} --name={{ osd_opensearch_dashboards_name }} -n={{ osd_opensearch_namespace }} --external-ip={{ osd_external_ip }}"

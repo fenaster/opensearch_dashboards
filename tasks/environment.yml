@@ -5,9 +5,11 @@
     path: /etc/environment
     regexp: '^KUBECONFIG=/etc/rancher/k3s/k3s.yaml'
     line: 'KUBECONFIG=/etc/rancher/k3s/k3s.yaml'
+  when: osd_full_install
 
 - name: Add KUBECONFIG to running config
   ansible.builtin.command: "/bin/bash -c export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
+  when: osd_full_install
 
 - name: Change sysctl vm.max_map_count to 262144
   ansible.builtin.lineinfile:

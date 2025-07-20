@@ -9,6 +9,7 @@
   kubernetes.core.helm:
     name: "{{ osd_opensearch_name }}"
     namespace: "{{ osd_opensearch_namespace }}"
+    create_namespace: true
     chart_ref: opensearch/opensearch
     values_files:
       - '{{ osd_opensearch_dir }}/{{ osd_customvalues }}'
@@ -17,7 +18,6 @@
   kubernetes.core.k8s_info:
     kind: Pod
     wait: yes
-    name: opensearch-cluster-master-0
-    namespace: default
+    namespace: '{{ osd_opensearch_namespace }}'
     wait_sleep: 10
     wait_timeout: 360

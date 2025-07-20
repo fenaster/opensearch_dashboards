@@ -1,0 +1,70 @@
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: {{ osd_password }}
+  - name: DISABLE_INSTALL_DEMO_CONFIG
+    value: "true"
+
+secretMounts:
+  - name: bluehat-dev-{{ inventory_hostname }}
+    secretName: bluehat-dev-{{ inventory_hostname }}
+    path: /usr/share/opensearch/config/certs
+    defaultMode: 0644
+  - name: bluehat-dev-admin
+    secretName: bluehat-dev-admin
+    path: /usr/share/opensearch/config/certs/admin
+    defaultMode: 0644
+  - name: bluehat-dev-client
+    secretName: bluehat-dev-client
+    path: /usr/share/opensearch/config/certs/client
+    defaultMode: 0644
+
+masterService: "bluehat-dev"
+
+config:
+  opensearch.yml: |
+    plugins.security.ssl.transport.enabled: true
+    plugins.security.ssl.transport.pemcert_filepath: certs/tls.crt
+    plugins.security.ssl.transport.pemkey_filepath: certs/tls.key
+    plugins.security.ssl.transport.pemtrustedcas_filepath: certs/ca.crt
+    plugins.security.ssl.transport.enforce_hostname_verification: false
+
+    plugins.security.ssl.http.enabled: true
+    plugins.security.ssl.http.pemcert_filepath: certs/client/tls.crt
+    plugins.security.ssl.http.pemkey_filepath: certs/client/tls.key
+    plugins.security.ssl.http.pemtrustedcas_filepath: certs/client/ca.crt
+
+    plugins.security.authcz.admin_dn:
+      - "CN=ADMIN,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+      - "CN=bluehat-dev.test,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+    plugins.security.nodes_dn:
+      - "CN=bluehat-dev.test,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+      - "CN=rke2s.bluehat-dev.test"
+      - "CN=rke2w1.bluehat-dev.test"
+      - "CN=rke2w2.bluehat-dev.test"
+      - "CN=rke2s,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+      - "CN=rke2w1,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+      - "CN=rke2w2,OU=OPENSEARCH,O=BLUEHAT,L=SOTON,ST=HAMPSHIRE,C=GB"
+
+
+    plugins.security.allow_default_init_securityindex: true
+
+#    audit.type: internal_opensearch
+#    enable_snapshot_restore_privilege: true
+#    check_snapshot_restore_write_privileges: true
+#    restapi.roles_enabled: ["all_access", "security_rest_api_access"]
+#    system_indices.enabled: true
+#    system_indices.indices:
+#        [
+#          ".opendistro-alerting-config",
+#          ".opendistro-alerting-alert*",
+#          ".opendistro-anomaly-results*",
+#          ".opendistro-anomaly-detector*",
+#          ".opendistro-anomaly-checkpoints",
+#          ".opendistro-anomaly-detection-state",
+#          ".opendistro-reports-*",
+#          ".opendistro-notifications-*",
+#          ".opendistro-notebooks",
+#          ".opendistro-asynchronous-search-response*",
+#        ]
+
+#replicas: 1

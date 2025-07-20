@@ -6,7 +6,6 @@
 
 - name: Configure Environment
   ansible.builtin.include_tasks: environment.yml
-  when: osd_full_install
 
 - name: Create Opensearch directory
   ansible.builtin.file:
@@ -15,7 +14,12 @@
 
 - name: Create config file
   ansible.builtin.template:
-    src: customvalues.yaml
+    src: customValues.yaml
+    dest: "{{ osd_opensearch_dir }}"
+
+- name: Create config file
+  ansible.builtin.template:
+    src: dashValues.yaml
     dest: "{{ osd_opensearch_dir }}"
 
 - name: Install Opensearch

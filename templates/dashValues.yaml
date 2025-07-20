@@ -1,0 +1,48 @@
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: {{ osd_password }}
+
+secretMounts:
+  - name: bluehat-dev-dash
+    secretName: bluehat-dev-dash
+    path: /usr/share/opensearch-dashboards/config/certs/
+    default: 0644
+
+opensearchHosts: "https://bluehat-dev:9200"
+
+#opensearchDashboards:
+#  tls:
+#    enabled: true
+#    existingSecret: bluehat-dev-dash
+
+config:
+  opensearch_dashboards.yml: |
+    server.host: "0.0.0.0"
+
+    opensearch.ssl.verificationMode: full
+    opensearch.ssl.certificateAuthorities: "/usr/share/opensearch-dashboards/config/certs/ca.crt"
+
+    opensearch.username: "admin"
+    opensearch.password: "{{ osd_password }}"
+    server.ssl.enabled: true
+    server.ssl.key: /usr/share/opensearch-dashboards/config/certs/tls.key
+    server.ssl.certificate: /usr/share/opensearch-dashboards/config/certs/tls.crt
+
+#    plugins.security.ssl.transport.enabled: true
+#    plugins.security.ssl.transport.pemcert_filepath: /usr/share/opensearch/config/certs/tls.crt
+#    plugins.security.ssl.transport.pemkey_filepath: /usr/share/opensearch/config/certs/tls.key
+#    plugins.security.ssl.transport.pemtrustedcas_filepath: /usr/share/opensearch/config/certs/tls.crt
+#    plugins.security.ssl.transport.enforce_hostname_verification: false
+#
+#    plugins.security.ssl.http.enabled: true
+#    plugins.security.ssl.http.pemcert_filepath: /usr/share/opensearch/config/certs/tls.crt
+#    plugins.security.ssl.http.pemkey_filepath: /usr/share/opensearch/config/certs/tls.key
+#    plugins.security.ssl.http.pemtrustedcas_filepath: /usr/share/opensearch/config/certs/ca.crt
+#
+#    ssl:
+#      transport:
+#        pemcert_filepath: /usr/share/opensearch/config/certs/tls.crt
+#        pemkey_filepath: /usr/share/opensearch/config/certs/tls.key
+#      certificateAuthorities: /usr/share/opensearch/config/certs/ca.crt
+
+#replicas: 1
