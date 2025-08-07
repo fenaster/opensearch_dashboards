@@ -20,4 +20,4 @@
     wait: yes
     namespace: '{{ osd_opensearch_namespace }}'
     wait_sleep: 10
-    wait_timeout: 360
+    wait_timeout: 600
